@@ -9,6 +9,7 @@ const PrincipalCard = ({ lat, lon }) => {
   const [temperture, setTemperture] = useState();
   const [isCelsius, setIsCelsius] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [weather, setWeather] = useState();
 
   useEffect(() => {
     if (lat) {
@@ -23,15 +24,20 @@ const PrincipalCard = ({ lat, lon }) => {
               ((res.data.main.temp - 273.15) * 9) / 5 + 32
             )} °F`,
           };
+          const URL = `http://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&unit=metric&output=json`;
+          axios
+            .get(URL)
+            .then((res) => setWeather(res.data.dataseries))
+            .catch((err) => console.log(err));
           setTemperture(temp);
           setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
   }, [lat, lon]);
-  console.log(location);
-  const changeTemperture = () => setIsCelsius(!isCelsius);
 
+  const changeTemperture = () => setIsCelsius(!isCelsius);
+  console.log(weather);
   if (isLoading) {
     return <Loading />;
   } else {
@@ -51,12 +57,48 @@ const PrincipalCard = ({ lat, lon }) => {
           <p className="current-weather_location">
             {location?.name}, {location?.sys.country}
           </p>
-          <button onClick={changeTemperture}>
-            {isCelsius ? "change to °F" : "change to °C"}
+          <button className="button-temperture" onClick={changeTemperture}>
+            {isCelsius ? "Change to °F" : "Change to °C"}
           </button>
         </section>
-        <DaysCard lat={lat} lon={lon} />
-        <section className="current-hightlights"></section>
+
+        <section className="information">
+          <div className="prediction-container">
+            {weather?.map((day) => (
+              <DaysCard key={day.date} day={day} isCelsius={isCelsius} />
+            ))}
+          </div>
+
+          <section className="hightlights">
+            <h3>Today's Highlights</h3>
+            <article className="current-hightlights">
+              <div className="wind card-hightlights">
+                <p>Wind</p>
+                <p>
+                  {location?.wind.speed} <span>m/s</span>
+                </p>
+              </div>
+              <div className="humidity card-hightlights">
+                <p>humidity</p>
+                <p>
+                  {location?.main.humidity} <span>%</span>
+                </p>
+              </div>
+              <div className="clouds card-hightlights">
+                <p>Clouds</p>
+                <p>
+                  {location?.clouds.all} <span>%</span>
+                </p>
+              </div>
+              <div className="pressure card-hightlights">
+                <p>Pressure</p>
+                <p>
+                  {location?.main.pressure} <span>hpa</span>
+                </p>
+              </div>
+            </article>
+          </section>
+        </section>
       </div>
     );
   }
