@@ -19,11 +19,16 @@ const DaysCard = ({ day, isCelsius }) => {
       <img src={`/assets/image/${day.weather}.png`} alt="wather" />
       <p className="temp-prediction">
         <span>
-          Max: {day.temp2m.max} {isCelsius ? "°C " : "°F"}
+          Max:{" "}
+          {isCelsius
+            ? `${day.temp2m.max} °C `
+            : `${(day.temp2m.max * 9) / 5 + 32} °F`}
         </span>
         <span>
-          Min: {day.temp2m.min}
-          {isCelsius ? "°C " : "°F"}
+          Min:
+          {isCelsius
+            ? `${day.temp2m.min} °C `
+            : `${(day.temp2m.min * 9) / 5 + 32} °F`}
         </span>
       </p>
     </div>
