@@ -16,7 +16,7 @@ const DaysCard = ({ day, isCelsius }) => {
   return (
     <div className="day-container">
       <p className="date">{parsearDate(day.date)}</p>
-      <img src={`../../public/assets/image/${day.weather}.png`} alt="wather" />
+      <img src={`/assets/image/${day.weather}.png`} alt="wather" />
       <p className="temp-prediction">
         <span>
           Max: {day.temp2m.max} {isCelsius ? "°C " : "°F"}

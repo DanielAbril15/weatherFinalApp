@@ -24,7 +24,7 @@ const PrincipalCard = ({ lat, lon }) => {
               ((res.data.main.temp - 273.15) * 9) / 5 + 32
             )} °F`,
           };
-          const URL = `http://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&unit=metric&output=json`;
+          const URL = `https://www.7timer.info/bin/civillight.php?lon=${lon}&lat=${lat}&ac=0&unit=metric&output=json`;
           axios
             .get(URL)
             .then((res) => setWeather(res.data.dataseries))
