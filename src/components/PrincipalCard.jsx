@@ -42,7 +42,7 @@ const PrincipalCard = ({ lat, lon }) => {
     return <Loading />;
   } else {
     return (
-      <div>
+      <div className="weather-container">
         <section className="current-weather">
           <img
             src={`http://openweathermap.org/img/wn/${location?.weather[0].icon}@4x.png`}

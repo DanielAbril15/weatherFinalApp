@@ -37,3 +37,23 @@
   font-size: 1.4rem;
   color: var(--secondary-letters);
 }
+@media (min-width: 500px) {
+  .day-container {
+    font-size: 1.6rem;
+    width: 100px;
+    height: 160px;
+  }
+  .day-container .temp-prediction {
+    margin-top: 10px;
+  }
+  .day-container .temp-prediction span:nth-child(1) {
+    font-size: 1.4rem;
+  }
+  .day-container .temp-prediction span:nth-child(2) {
+    font-size: 1.2rem;
+  }
+  .day-container img {
+    width: 70%;
+    padding-left: 16px;
+  }
+}
